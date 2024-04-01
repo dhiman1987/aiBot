@@ -1,3 +1,9 @@
+logging:
+  level:
+    com:
+      dhiman:
+        ai:
+          bot: DEBUG
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
