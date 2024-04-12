@@ -1,0 +1,29 @@
+name: Build App
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build-docker-image:
+    runs-on: ubuntu-latest
+    
+    steps:    
+    - uses: actions/checkout@v4
+    - name: check-out
+    - name: get-pom-version
+      id: pom-version
+    - uses: CptMokoena/maven-get-version-action@master
+    - name: maven-build 
+    - uses: actions/setup-java@v4
+      with:
+         distribution: 'temurin' # See 'Supported distributions' for available options
+         java-version: '21'
+    - run: mvn clean install -Dmaven.test.skip=true
+    
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --build-arg VERSION=$version --tag dhiman1987/aibot:$version-amd64
