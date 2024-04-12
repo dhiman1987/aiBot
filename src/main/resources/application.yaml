@@ -12,6 +12,6 @@ spring:
 
 app:
   properties:
-    setup-vector-store: false
+    setup-vector-store: ${SETUP_VECTOR_STORE}
     text-source: text-source.txt
 
