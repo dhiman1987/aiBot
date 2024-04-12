@@ -12,6 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: get-pom-version
+      id: pom-version
+      uses: CptMokoena/maven-get-version-action@master
+      
     - uses: actions/checkout@v4
     - uses: actions/setup-java@v4
       with:
