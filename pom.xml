@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.dhiman</groupId>
 	<artifactId>aiBot</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 	<name>aiBot</name>
 	<description>Demo project from Sprint AI</description>
 	<properties>

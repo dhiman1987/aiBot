@@ -23,7 +23,7 @@ public class Endpoint {
 
     @PostMapping
     public ResponseEntity<?> chat(@RequestBody ChatInput chatInput){
-        logger.debug("ChatInput received {}",chatInput.toString());
+        logger.info("ChatInput received {}",chatInput.toString());
         if(null == chatInput.messageText()){
             return ResponseEntity.badRequest().body("empty chat");
         }
