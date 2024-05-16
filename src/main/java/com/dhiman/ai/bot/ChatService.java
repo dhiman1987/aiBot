@@ -34,38 +34,20 @@ public class ChatService {
     }
     public String chatOnSpecificData(String question) {
 
-
         List<Document> documents = this.vectors.similaritySearch(question);
         String inlined = documents.stream()
                 .map(Document::getContent)
                 .collect(Collectors.joining(System.lineSeparator()));
 
-        PromptTemplate promptTemplate = new PromptTemplate(promptResource);
         Map<String,Object> params =  new HashMap<>(2);
         params.put("question",question);
         params.put("documents", inlined);
-        Prompt prompt = promptTemplate.create(params);
+
+        Message userMessage = new UserMessage(question);
+        PromptTemplate systemPromptTemplate = new SystemPromptTemplate(promptResource);
+        Message systemMessage = systemPromptTemplate.createMessage(params);
+        Prompt prompt = new Prompt(List.of(userMessage, systemMessage));
+
         return chatClient.call(prompt).getResult().getOutput().getContent();
-
-
-/*        String prompt = "Based on the following: {documents}";
-        Message systemPrompt = new SystemPromptTemplate(prompt).createMessage(Map.of("documents", inlined));
-        UserMessage userMessage = new UserMessage(question);
-
-        String chatResponse = this.chatClient.call(
-                        new Prompt(List.of(systemPrompt, userMessage)))
-                .getResult()
-                .getOutput()
-                .getContent();
-        return chatResponse;*/
-
-        /*Completion completion = new Completion(
-                this.chatClient.call(
-                        new Prompt(List.of(systemPrompt, userMessage)))
-                        .getResult()
-                        .getOutput()
-                        .getContent());
-        return completion.toString();*/
-
     }
 }
