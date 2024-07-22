@@ -5,13 +5,14 @@ logging:
         ai:
           bot: DEBUG
 spring:
-  datasource:
-    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${POSTGRES_DB}
-    username: ${PGUSER}
-    password: ${PGPASSWORD}
-
+  ai:
+    vectorstore:
+      pinecone:
+        apiKey: ${PINECONE_API_KEY}
+        environment: ${PINECONE_ENV}
+        projectId: ${PINECONE_PROJECT_ID}
+        index-name: ${PINECONE_INDEX_NAME}
 app:
   properties:
-    setup-vector-store: ${SETUP_VECTOR_STORE}
     text-source: text-source.txt
 
